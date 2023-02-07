@@ -1,16 +1,20 @@
-package com.test.demo.entity;
+package com.test.demo.user;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+
+import com.test.demo.comment.Comment;
+import com.test.demo.post.Post;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -20,6 +24,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@FilterDef(name = "deletedUserFilter", parameters = @ParamDef(name = "deleted", type = "boolean"))
+@Filter(name = "deletedUserFilter", condition = "deleted = :isDeleted")
 public class User {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +36,10 @@ public class User {
 
 	private final boolean deleted = false;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "user")
 	private final List<Post> posts = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "user")
 	private final List<Comment> comments = new ArrayList<>();
 
 	@Builder

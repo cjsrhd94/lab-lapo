@@ -1,4 +1,4 @@
-package com.test.demo.entity;
+package com.test.demo.post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-import org.hibernate.annotations.Where;
+import com.test.demo.comment.Comment;
+import com.test.demo.user.User;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,7 +24,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Where(clause = "deleted = false")
 public class Post {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)

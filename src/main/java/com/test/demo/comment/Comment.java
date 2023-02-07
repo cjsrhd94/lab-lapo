@@ -1,4 +1,4 @@
-package com.test.demo.entity;
+package com.test.demo.comment;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,7 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.Where;
+import com.test.demo.post.Post;
+import com.test.demo.user.User;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,13 +19,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Where(clause = "deleted = false")
 public class Comment {
 
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String content;
+
+	private final boolean deleted = false;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
