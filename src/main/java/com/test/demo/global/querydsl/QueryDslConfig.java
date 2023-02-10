@@ -1,4 +1,4 @@
-package com.test.demo.global;
+package com.test.demo.global.querydsl;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
