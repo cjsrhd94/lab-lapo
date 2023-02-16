@@ -1,14 +1,11 @@
 package com.test.demo.global.socket;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
@@ -24,12 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ChatService {
 	private final ObjectMapper objectMapper;
-	private LinkedHashMap<String, ChatRoom> chatRooms;
-
-	@PostConstruct
-	private void init() {
-		chatRooms = new LinkedHashMap<>();
-	}
+	private final Map<String, ChatRoom> chatRooms = new LinkedHashMap<>();
 
 	public List<ChatRoom> findAllRoom() {
 		return new LinkedList<>(chatRooms.values());
@@ -55,5 +47,9 @@ public class ChatService {
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 		}
+	}
+
+	public void deleteRoom(String roomId) {
+		chatRooms.remove(roomId);
 	}
 }
