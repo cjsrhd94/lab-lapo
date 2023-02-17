@@ -32,12 +32,8 @@ public class ChatService {
 	}
 
 	public ChatRoom createRoom(String name) {
-		String randomId = UUID.randomUUID().toString();
-		ChatRoom chatRoom = ChatRoom.builder()
-			.roomId(randomId)
-			.name(name)
-			.build();
-		chatRooms.put(randomId, chatRoom);
+		ChatRoom chatRoom = ChatRoom.create(name);
+		chatRooms.put(chatRoom.getRoomId(), chatRoom);
 		return chatRoom;
 	}
 

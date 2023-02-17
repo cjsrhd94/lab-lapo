@@ -1,6 +1,5 @@
 package com.test.demo.global.socket;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,20 +15,20 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/chat")
-public class ChatController {
+public class RoomController {
 	private final ChatService chatService;
 
-	@PostMapping
+	@PostMapping(value = "/room")
 	public ChatRoom createRoom(@RequestBody Map<String, String> name) {
 		return chatService.createRoom(name.get("name"));
 	}
 
-	@GetMapping
+	@GetMapping(value = "/rooms")
 	public List<ChatRoom> findAllRoom() {
 		return chatService.findAllRoom();
 	}
 
-	@DeleteMapping
+	@DeleteMapping(value = "/room")
 	public void deleteRoom(@RequestBody Map<String, String> roomId) {
 		chatService.deleteRoom(roomId.get("roomId"));
 	}
